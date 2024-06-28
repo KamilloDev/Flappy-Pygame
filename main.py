@@ -15,6 +15,7 @@ class Game:
         # Timer
         self.obstacle_timer = pygame.USEREVENT + 1
         pygame.time.set_timer(self.obstacle_timer, 1500)
+        done = False
                    
     def run(self):
         while True:
@@ -30,12 +31,16 @@ class Game:
             
             
             
-            number = random.randint(-125,-11)
-            y = number + 550
             # Draw the pipes            
-            if event.type == self.obstacle_timer:
-                self.pipes.add(Pipeup(50, 250, y))
-                self.pipes.add(Pipedown(50, 250, number))
+            if event.type == self.obstacle_timer and not done:
+                done = True
+                number = random.randint(-125,-11)
+                y = number + 550
+                self.pipes.add(Pipeup(y))
+                self.pipes.add(Pipedown(number))
+                
+            done = False
+                
             
             self.pipes.update()
             self.pipes.draw(self.screen)
