@@ -26,20 +26,20 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.flappy.sprite.jump()
-                    
+                # Draw the pipes            
+                if event.type == self.obstacle_timer and not done:
+                    done = True
+                    number = random.randint(-125,-11)
+                    y = number + 550
+                    self.pipes.add(Pipeup(y))
+                    self.pipes.add(Pipedown(number))
+                
+            done = False
             self.screen.fill((0, 0, 0))        
             
             
             
-            # Draw the pipes            
-            if event.type == self.obstacle_timer and not done:
-                done = True
-                number = random.randint(-125,-11)
-                y = number + 550
-                self.pipes.add(Pipeup(y))
-                self.pipes.add(Pipedown(number))
-                
-            done = False
+            
                 
             
             self.pipes.update()
