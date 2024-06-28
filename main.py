@@ -1,5 +1,7 @@
 import pygame, sys
 from flappy import Flappy
+from pipe import Pipe
+
 
 class Game:
     def __init__(self):
@@ -8,6 +10,8 @@ class Game:
         self.clock = pygame.time.Clock()
         
         self.flappy = pygame.sprite.GroupSingle(Flappy('white', 50, 50))
+        self.pipes = pygame.sprite.Group(Pipe( 50, 150))
+        
     def run(self):
         while True:
             for event in pygame.event.get():
@@ -20,8 +24,13 @@ class Game:
                     
             self.screen.fill((0, 0, 0))        
             
+            self.pipes.draw(self.screen)
+            self.pipes.update()
+            
             self.flappy.draw(self.screen)
             self.flappy.update()
+            
+            
             pygame.display.update()
             self.clock.tick(60)
 
