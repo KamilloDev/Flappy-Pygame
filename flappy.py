@@ -32,6 +32,10 @@ class Flappy(pygame.sprite.Sprite):
         self.velocity += self.gravity
         self.rect.y += self.velocity
 
+    def kill(self):
+        self.rect.y = 100
+        self.velocity = 0
+        
     def check_Alive(self):
         if self.rect.y >= 400 or self.rect.y <= 0:
             self.kill()

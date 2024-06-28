@@ -97,7 +97,9 @@ class Game:
                 # Restart by pressing, the spacebar
                 keys = pygame.key.get_pressed()
                 if keys[pygame.K_SPACE]:
-                    self.flappy.sprite.y = 100
+                    self.flappy.sprite.kill()
+                    self.pipes.empty()
+                    self.score = 0
                     self.current_time = 0
                     self.game_active = True
 
