@@ -18,11 +18,25 @@ class Game:
 
         self.game_active = True
         
+        self.start_time = 0
+        
+        # Fonts
+        self.basic_font = pygame.font.Font(None, 30)
+        self.game_over = self.basic_font.render('Game Over! Press spacebar', True, 'black')
+        self.game_over_rect = self.game_over.get_rect(center = (200, 200))
+        
         # Timer
         self.obstacle_timer = pygame.USEREVENT + 1
         pygame.time.set_timer(self.obstacle_timer, 1500)
         done = False
-                   
+
+    def display_score(self):
+        current_time = int(pygame.time.get_ticks() / 1000) - self.start_time
+        score_surface = self.basic_font.render(f'Score: {current_time}', True, 'black')
+        score_rect = score_surface.get_rect(center = (235, 50))
+        self.screen.blit(score_surface, score_rect)
+        return current_time
+              
     def run(self):
         while True:
             for event in pygame.event.get():
@@ -50,6 +64,7 @@ class Game:
                 self.bg_rect.x = 0
              
             
+            
             if self.flappy.sprite.rect.y >= 400 or self.flappy.sprite.rect.y <= 0:
                 self.game_active = False
             
@@ -63,6 +78,8 @@ class Game:
                 
                 self.flappy.draw(self.screen)
                 self.flappy.update()
+                
+            score = self.display_score()
             
             pygame.display.update()
             self.clock.tick(60)
