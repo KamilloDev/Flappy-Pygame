@@ -7,7 +7,7 @@ class Game:
         self.screen = pygame.display.set_mode((500, 400))
         self.clock = pygame.time.Clock()
         
-        self.flappy = pygame.sprite.Group(Flappy())
+        self.flappy = pygame.sprite.Group(Flappy('white', 50, 50))
     def run(self):
         while True:
             for event in pygame.event.get():
@@ -16,5 +16,6 @@ class Game:
                     sys.exit()
                     
             self.flappy.draw(self.screen)
+            pygame.display.update()
 
 Game().run()
