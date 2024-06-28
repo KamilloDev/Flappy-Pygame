@@ -1,6 +1,6 @@
-import pygame, sys
+import pygame, sys, random
 from flappy import Flappy
-from pipe import Pipe
+from pipe import Pipedown, Pipeup
 
 
 class Game:
@@ -10,8 +10,12 @@ class Game:
         self.clock = pygame.time.Clock()
         
         self.flappy = pygame.sprite.GroupSingle(Flappy('white', 50, 50))
-        self.pipes = pygame.sprite.Group(Pipe( 50, 150))
-        
+        self.pipes = pygame.sprite.Group()
+  
+        # Timer
+        self.obstacle_timer = pygame.USEREVENT + 1
+        pygame.time.set_timer(self.obstacle_timer, 1500)
+                   
     def run(self):
         while True:
             for event in pygame.event.get():
@@ -24,12 +28,20 @@ class Game:
                     
             self.screen.fill((0, 0, 0))        
             
+            
+            
+            number = random.randint(-125,-11)
+            y = number + 550
+            # Draw the pipes            
+            if event.type == self.obstacle_timer:
+                self.pipes.add(Pipeup(50, 150, y))
+                self.pipes.add(Pipedown(50, 150, number))
+            
             self.pipes.draw(self.screen)
             self.pipes.update()
             
             self.flappy.draw(self.screen)
             self.flappy.update()
-            
             
             pygame.display.update()
             self.clock.tick(60)

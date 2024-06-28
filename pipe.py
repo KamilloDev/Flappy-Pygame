@@ -1,21 +1,41 @@
-import pygame
+import pygame, random
 
-class Pipe(pygame.sprite.Sprite):
+class Pipeup(pygame.sprite.Sprite):
     def __init__(self, width, height, y):
         super().__init__()
-        self.image = pygame.Surface([width, height])
-        self.image.fill('blue')
-        self.rect = self.image.get_rect()
-        self.rect.x = 600
-        self.rect.y = y
-        
+        pipeup = pygame.Surface([width, height])
+        self.image = pipeup
+        self.image.fill('red')
+        self.rect = self.image.get_rect(center = (450, y))
+
+    def destroy(self):
+        if self.rect.x <= -100:
+           self.kill() 
+           
     def move(self):
-        self.rect.x -= 5
-        
+        self.rect.x -= 2
+    
     def update(self):
-        self.move()
-        
-class Pipes(Pipe):
-    def __init__(self, loc_y):
-        super().__init__(50, 150, loc_y)
-        pass
+       self.move()
+       self.destroy()
+
+class Pipedown(pygame.sprite.Sprite):
+    def __init__(self, width, height, number):
+        super().__init__()
+        pipedown = pygame.Surface([width, height])
+        self.gap = 50
+        self.y = Pipeup
+        self.image = pipedown
+        self.image.fill('red')
+        self.rect = self.image.get_rect(center = (450, number))
+
+    def destroy(self):
+        if self.rect.x <= -100:
+           self.kill() 
+
+    def move(self):
+        self.rect.x -= 2
+    
+    def update(self):
+       self.move()
+       self.destroy()      
