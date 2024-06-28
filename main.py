@@ -10,6 +10,8 @@ class Game:
         self.clock = pygame.time.Clock()
         pygame.display.set_caption('Flappy bird game - Pygame ')
         
+        self.background = pygame.image.load('imgs/game_background.png')
+        
         self.flappy = pygame.sprite.GroupSingle(Flappy('white', 50, 50))
         self.pipes = pygame.sprite.Group()
   
@@ -36,7 +38,7 @@ class Game:
                     self.pipes.add(Pipedown(number))
                 
             done = False
-            self.screen.fill((0, 0, 0))        
+            self.screen.blit(self.background, (0, 0))      
             
             
             
