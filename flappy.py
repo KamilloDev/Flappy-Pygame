@@ -24,21 +24,20 @@ class Flappy(pygame.sprite.Sprite):
         self.velocity = 0
         self.gravity = 0.5
         self.jump_strength = -10
-        self.rect.x = 0
-        self.rect.y = 0
+        self.rect.x = 10
+        self.rect.y = 50
         
     def update(self):
         self.change_animation()
         self.velocity += self.gravity
         self.rect.y += self.velocity
 
-        # Keep the sprite within the screen bounds
-        if self.rect.y > 500 - self.rect.height:
-            self.rect.y = 400 - self.rect.height
-            self.velocity = 0
-        elif self.rect.y < 0:
-            self.rect.y = 0
-            self.velocity = 0
+    def check_Alive(self):
+        if self.rect.y >= 400 or self.rect.y <= 0:
+            self.kill()
+            return False
+        else:
+            return True
         
     def jump(self):
         self.velocity = self.jump_strength
