@@ -6,6 +6,7 @@ class Pipeup(pygame.sprite.Sprite):
         pipeup = pygame.Surface([width, height])
         self.image = pipeup
         self.image.fill('red')
+        # I guess it sets the positions too
         self.rect = self.image.get_rect(center = (450, y))
 
     def destroy(self):
@@ -24,9 +25,10 @@ class Pipedown(pygame.sprite.Sprite):
         super().__init__()
         pipedown = pygame.Surface([width, height])
         self.gap = 50
-        self.y = Pipeup
+        self.y = 0
         self.image = pipedown
         self.image.fill('red')
+        # Also sets the pos?
         self.rect = self.image.get_rect(center = (450, number))
 
     def destroy(self):

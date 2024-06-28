@@ -34,11 +34,12 @@ class Game:
             y = number + 550
             # Draw the pipes            
             if event.type == self.obstacle_timer:
-                self.pipes.add(Pipeup(50, 150, y))
-                self.pipes.add(Pipedown(50, 150, number))
+                self.pipes.add(Pipeup(50, 250, y))
+                self.pipes.add(Pipedown(50, 250, number))
             
-            self.pipes.draw(self.screen)
             self.pipes.update()
+            self.pipes.draw(self.screen)
+            
             
             self.flappy.draw(self.screen)
             self.flappy.update()
