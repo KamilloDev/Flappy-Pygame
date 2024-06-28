@@ -25,7 +25,7 @@ class Flappy(pygame.sprite.Sprite):
         self.gravity = 0.5
         self.jump_strength = -10
         self.rect.x = 10
-        self.rect.y = 50
+        self.rect.y = 100
         
     def update(self):
         self.change_animation()

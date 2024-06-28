@@ -17,13 +17,12 @@ class Game:
         self.pipes = pygame.sprite.Group()
 
         self.game_active = True
-        
         self.start_time = 0
         
         # Fonts
         self.basic_font = pygame.font.Font(None, 30)
         self.game_over = self.basic_font.render('Game Over! Press spacebar', True, 'black')
-        self.game_over_rect = self.game_over.get_rect(center = (200, 200))
+        self.game_over_rect = self.game_over.get_rect(center = (236, 200))
         
         # Timer
         self.obstacle_timer = pygame.USEREVENT + 1
@@ -56,30 +55,52 @@ class Game:
                         self.pipes.add(Pipeup(y))
                         self.pipes.add(Pipedown(number))
   
-            
-            
-            self.bg_rect.x -= 1
-            self.screen.blit(self.background, self.bg_rect)      
-            if self.bg_rect.x <= -1800:
-                self.bg_rect.x = 0
-             
-            
-            
-            if self.flappy.sprite.rect.y >= 400 or self.flappy.sprite.rect.y <= 0:
-                self.game_active = False
-            
-            if pygame.sprite.groupcollide(self.flappy, self.pipes, True, False):
-                self.game_active = False
-            
             if self.game_active:
+                
+                self.bg_rect.x -= 1
+                self.screen.blit(self.background, self.bg_rect)      
+                if self.bg_rect.x <= -1800:
+                    self.bg_rect.x = 0
+                
+                
+                if self.flappy.sprite.rect.y >= 400 or self.flappy.sprite.rect.y <= 0:
+                    self.game_active = False
+                
+                if pygame.sprite.groupcollide(self.flappy, self.pipes, False, False):
+                    self.game_active = False
+                
                 self.pipes.update()
                 self.pipes.draw(self.screen)
-                
-                
+                    
                 self.flappy.draw(self.screen)
                 self.flappy.update()
+                    
+                self.score = self.display_score()
                 
-            score = self.display_score()
+            else:
+                # if game over, we want to do these commands
+                # Reset time
+                self.start_time = int(pygame.time.get_ticks() / 1000)
+                # Reset Background
+                self.bg_rect.x = 0
+                
+                # End screen font
+                self.screen.fill(((232,63,104)))
+                self.screen.blit(self.game_over, self.game_over_rect)
+                
+                
+                # Display final score
+                final_score = self.basic_font.render(f'Your final score: {self.score}', True, 'black')
+                final_score_rect = final_score.get_rect(center = (236, 50))
+                self.screen.blit(final_score, final_score_rect)
+                
+                # Restart by pressing, the spacebar
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_SPACE]:
+                    self.flappy.sprite.y = 100
+                    self.current_time = 0
+                    self.game_active = True
+
             
             pygame.display.update()
             self.clock.tick(60)
