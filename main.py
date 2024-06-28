@@ -8,6 +8,7 @@ class Game:
         pygame.init()
         self.screen = pygame.display.set_mode((500, 400))
         self.clock = pygame.time.Clock()
+        pygame.display.set_caption('Flappy bird game - Pygame ')
         
         self.flappy = pygame.sprite.GroupSingle(Flappy('white', 50, 50))
         self.pipes = pygame.sprite.Group()

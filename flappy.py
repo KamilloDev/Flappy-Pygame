@@ -15,6 +15,10 @@ class Flappy(pygame.sprite.Sprite):
         bird_8 = pygame.transform.scale_by(pygame.image.load('imgs/70.png').convert_alpha(), 1.8)
         bird_9 = pygame.transform.scale_by(pygame.image.load('imgs/80.png').convert_alpha(), 1.8)
         
+        self.birds = [bird_1, bird_2, bird_3, bird_4, bird_5, bird_6, bird_7, bird_8, bird_9]
+        self.bird_index = 0
+        self.image = self.birds[self.bird_index]
+        self.rect = self.image.get_rect(center = (50,50))
         
         self.rect = self.image.get_rect()
         self.velocity = 0
@@ -24,6 +28,7 @@ class Flappy(pygame.sprite.Sprite):
         self.rect.y = 0
         
     def update(self):
+        self.change_animation()
         self.velocity += self.gravity
         self.rect.y += self.velocity
 
@@ -37,3 +42,10 @@ class Flappy(pygame.sprite.Sprite):
         
     def jump(self):
         self.velocity = self.jump_strength
+        
+    def change_animation(self):
+        self.bird_index += 0.5
+        if self.bird_index >= len(self.birds):
+            self.bird_index = 0
+            self.jumping = False
+        self.image = self.birds[int(self.bird_index)]
