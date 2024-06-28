@@ -14,11 +14,15 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.flappy.sprite.jump()
                     
             self.screen.fill((0, 0, 0))        
             
             self.flappy.draw(self.screen)
             self.flappy.update()
             pygame.display.update()
+            self.clock.tick(60)
 
 Game().run()

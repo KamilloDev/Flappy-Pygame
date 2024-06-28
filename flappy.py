@@ -24,6 +24,5 @@ class Flappy(pygame.sprite.Sprite):
             self.rect.y = 0
             self.velocity = 0
         
-    def move(self, velocity):
-        velocity += self.rect.y
-    
+    def jump(self):
+        self.velocity = self.jump_strength
